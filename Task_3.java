@@ -2,19 +2,23 @@ package CodSoft;
 
 import java.util.Scanner;
 
-class bankAccount{ 
+class BankAccount { 
     double balance;
-    public bankAccount(double inital_balance){
-        balance = inital_balance;
+
+    public BankAccount(double initial_balance) {
+        balance = initial_balance;
     }
-    public double get_Balance(){
+
+    public double getBalance() {
         return balance;
     }
+
     public void deposit(double amount) {
         balance += amount;
         System.out.println("Deposit successful");
         System.out.println("Current balance: " + balance);
     }
+
     public boolean withdraw(double amount) {
         if (amount <= balance) {
             balance -= amount;
@@ -26,18 +30,21 @@ class bankAccount{
             return false;
         }
     }
-
 }
-class ATM {
-    private bankAccount account;
-    Scanner sc;
-    public ATM(bankAccount account){
-        this.account= account;
-        this.sc= new Scanner(System.in);
 
+
+
+class ATM {
+    private BankAccount account;
+    private Scanner sc;
+
+    public ATM(BankAccount account) {
+        this.account = account;
+        this.sc = new Scanner(System.in);
     }
-    public void Start(){
-        while(true){
+
+    public void Start() {
+        while (true) {
             System.out.println("\nATM Menu:");
             System.out.println("1. Check Balance");
             System.out.println("2. Deposit");
@@ -45,6 +52,7 @@ class ATM {
             System.out.println("4. Exit");
             System.out.print("Choose an option: ");
             int choice = sc.nextInt();
+
             switch (choice) {
                 case 1:
                     checkBalance();
@@ -61,25 +69,27 @@ class ATM {
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
-        
-
         }
     }
-    public void checkBalance(){
-        System.out.println("\nCurrent Balance :- "+account.get_Balance());
+
+    private void checkBalance() {
+        System.out.println("\nCurrent Balance: " + account.getBalance());
     }
-    public void deposit(){
-        System.out.print("\nEnter the amount to deposit :- ");
+
+    private void deposit() {
+        System.out.print("\nEnter the amount to deposit: ");
         double amount = sc.nextDouble();
         account.deposit(amount);
     }
-    public void withdraw(){
-        System.out.print("\nEnter the amount to withdraw :- ");
+
+    private void withdraw() {
+        System.out.print("\nEnter the amount to withdraw: ");
         double amount = sc.nextDouble();
         account.withdraw(amount);
     }
+
     public static void main(String[] args) {
-        bankAccount account = new bankAccount(10000);
+        BankAccount account = new BankAccount(10000);
         ATM atm = new ATM(account);
         atm.Start();
     }
